@@ -60,10 +60,10 @@ dev = [
 all = ["la-lango-ai[torch,dev]"]
 
 [project.urls]
-Homepage     = "https://github.com/Wecncode/la-lango-ai"
-Repository   = "https://github.com/Wecncode/la-lango-ai"
-Issues       = "https://github.com/Wecncode/la-lango-ai/issues"
-Discussions  = "https://github.com/Wecncode/la-lango-ai/discussions"
+Homepage     = "https://github.com/Wecncode/La-Lango"
+Repository   = "https://github.com/Wecncode/La-Lango"
+Issues       = "https://github.com/Wecncode/La-Lango/issues"
+Discussions  = "https://github.com/Wecncode/La-Lango/discussions"
 
 [tool.setuptools.packages.find]
 where = ["backend"]
