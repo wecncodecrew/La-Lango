@@ -3,10 +3,10 @@
 > **Low-Resource Language Translation API** — A community-driven NLP platform for translating
 > regional dialects, built from scratch by students, for the world.
 
-[![CI](https://github.com/Wecncode/la-lango-ai/actions/workflows/ci.yml/badge.svg)](https://github.com/Wecncode/la-lango-ai/actions)
+[![CI](https://github.com/Wecncode/La-Lango/actions/workflows/ci.yml/badge.svg)](https://github.com/Wecncode/La-Lango/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
-[![Good First Issues](https://img.shields.io/github/issues/Wecncode/la-lango-ai/good-first-issue)](https://github.com/Wecncode/la-lango-ai/issues?q=is%3Aissue+label%3Agood-first-issue)
+[![Good First Issues](https://img.shields.io/github/issues/Wecncode/La-Lango/good-first-issue)](https://github.com/Wecncode/La-Lango/issues?q=is%3Aissue+label%3Agood-first-issue)
 
 ---
 
@@ -16,7 +16,6 @@ Hundreds of regional dialects and low-resource languages have little to no machi
 support. Commercial AI APIs ignore them because they are not profitable.
 
 **La Lango AI is our answer to that.**
-
 We are an open, community-built translation platform where every language deserves a model.
 
 > **No external AI APIs. No black boxes. Everything is implemented from scratch.**
