@@ -1,4 +1,4 @@
-# 🌍 La Lango AI
+\# 🌍 La Lango AI
 
 > **Low-Resource Language Translation API** — A community-driven NLP platform for translating
 > regional dialects, built from scratch by students, for the world.
@@ -76,8 +76,8 @@ Browser receives translation
 ### 1. Clone and install
 
 ```bash
-git clone https://github.com/Wecncode/la-lango-ai.git
-cd la-lango-ai
+git clone https://github.com/Wecncode/La-Lango.git
+cd La-Lango
 
 pip install -r backend/requirements.txt
 ```
@@ -156,8 +156,8 @@ Check [ROADMAP.md](ROADMAP.md) to see what is being worked on.
 
 ## Community
 
-- 💬 [GitHub Discussions](https://github.com/Wecncode/la-lango-ai/discussions)
-- 🐛 [Open an issue](https://github.com/Wecncode/la-lango-ai/issues)
+- 💬 [GitHub Discussions](https://github.com/Wecncode/La-Lango/discussions)
+- 🐛 [Open an issue](https://github.com/Wecncode/La-Lango/issues)
 - 📖 [docs/](docs/)
 
 ---
