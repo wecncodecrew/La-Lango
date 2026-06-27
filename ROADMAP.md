@@ -118,4 +118,4 @@ The web UI lives in `frontend/index.html` — a single HTML/CSS/JS file, no fram
 - Support for right-to-left scripts (Arabic, Urdu)
 - Community dataset hosting
 
-Have an idea? Open a [GitHub Discussion](https://github.com/Wecncode/La-Lango/discussions).
+Have an idea? Open a [GitHub Discussion](https://github.com/wecncodecrew/La-Lango/discussions).
