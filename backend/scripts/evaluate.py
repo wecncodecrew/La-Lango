@@ -17,9 +17,8 @@ import json
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from lalango.data.dataset import load_processed_dataset
-from lalango.evaluation.report import generate_report
-from lalango.tokenizers.char_tokenizer import CharTokenizer
+from lalango.data.dataset import load_processed_dataset  # noqa: E402
+from lalango.tokenizers.char_tokenizer import CharTokenizer  # noqa: E402
 
 
 def main():

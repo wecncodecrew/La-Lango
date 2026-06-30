@@ -11,7 +11,6 @@
 # Instead of updating the model after every single sentence (slow),
 # we process e.g. 32 sentences together (faster, more stable training).
 
-import json
 import os
 
 

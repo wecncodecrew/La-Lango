@@ -23,9 +23,9 @@
 #
 # This file contains the class skeletons. Fill them in as part of Phase 4.
 
-import torch
+import torch  # noqa: F401
 import torch.nn as nn
-import math
+import math  # noqa: F401
 
 
 class PositionalEncoding(nn.Module):
@@ -47,9 +47,11 @@ class PositionalEncoding(nn.Module):
     def __init__(self, embed_dim, max_seq_len=512, dropout=0.1):
         super().__init__()
         # TODO (Phase 4): Create the positional encoding matrix using sin/cos
-        # Hint: pe[pos][2i]   = sin(pos / 10000^(2i/embed_dim))
+        # Hint: pe[pos][2i] = sin(pos / 10000^(2i/embed_dim))
         #        pe[pos][2i+1] = cos(pos / 10000^(2i/embed_dim))
-        raise NotImplementedError("PositionalEncoding.__init__ is a Phase 4 task.")
+        raise NotImplementedError(
+            "PositionalEncoding.__init__ is a Phase 4 task."
+        )
 
     def forward(self, x):
         """
@@ -73,7 +75,8 @@ class MultiHeadAttention(nn.Module):
     TODO (Phase 4):
         Implement __init__ and forward.
         Key parameters: embed_dim, num_heads
-        Key operations: Q, K, V projections → scaled dot-product attention → concat → output projection
+        Key operations: Q, K, V projections → scaled dot-product attention
+                        → concat → output projection
     """
 
     def __init__(self, embed_dim, num_heads, dropout=0.1):

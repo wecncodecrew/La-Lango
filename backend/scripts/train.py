@@ -22,8 +22,8 @@ import json
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from lalango.data.dataset import load_processed_dataset, encode_corpus, create_batches
-from lalango.tokenizers.char_tokenizer import CharTokenizer
+from lalango.data.dataset import load_processed_dataset, encode_corpus, create_batches  # noqa: E402
+from lalango.tokenizers.char_tokenizer import CharTokenizer  # noqa: E402
 
 # We will import the model once Phase 1 is implemented.
 # For now this import is commented out so the script runs cleanly.
@@ -73,9 +73,9 @@ def main():
     )
     parser.add_argument("--epochs",     type=int,   default=30,   help="Number of training epochs.")
     parser.add_argument("--batch-size", type=int,   default=32,   help="Mini-batch size.")
-    parser.add_argument("--embed-dim",  type=int,   default=128,  help="Embedding dimension.")
-    parser.add_argument("--hidden-dim", type=int,   default=256,  help="LSTM hidden dimension.")
-    parser.add_argument("--lr",         type=float, default=0.001,help="Learning rate.")
+    parser.add_argument("--embed-dim", type=int, default=128, help="Embedding dimension.")
+    parser.add_argument("--hidden-dim", type=int, default=256, help="LSTM hidden dimension.")
+    parser.add_argument("--lr", type=float, default=0.001, help="Learning rate.")
     parser.add_argument(
         "--checkpoint-dir", default=None,
         help="Where to save model checkpoints. Defaults to checkpoints/<lang-pair>/."
@@ -86,9 +86,9 @@ def main():
     if args.checkpoint_dir is None:
         args.checkpoint_dir = os.path.join("checkpoints", args.lang_pair)
 
-    print(f"\n{'='*60}")
-    print(f"  La Lango AI — Training")
-    print(f"{'='*60}")
+    print("=" * 60)
+    print("  La Lango AI — Training")
+    print("=" * 60)
     print(f"  Language pair : {args.lang_pair}")
     print(f"  Data directory: {args.data}")
     print(f"  Epochs        : {args.epochs}")
@@ -97,14 +97,14 @@ def main():
     print(f"  Hidden dim    : {args.hidden_dim}")
     print(f"  Learning rate : {args.lr}")
     print(f"  Checkpoints   : {args.checkpoint_dir}")
-    print(f"{'='*60}\n")
+    print("=" * 60 + "\n")
 
     # ---------------------------------------------------------------------------
     # Step 1: Load the data
     # ---------------------------------------------------------------------------
     print("Step 1: Loading data...")
     train_src, train_tgt = load_processed_dataset(args.data, split="train")
-    val_src,   val_tgt   = load_processed_dataset(args.data, split="val")
+    val_src, val_tgt = load_processed_dataset(args.data, split="val")
     print(f"  Train: {len(train_src)} pairs")
     print(f"  Val:   {len(val_src)} pairs\n")
 
@@ -137,10 +137,10 @@ def main():
     # ---------------------------------------------------------------------------
     print("Step 3: Encoding and batching data...")
     train_encoded = encode_corpus(train_src, train_tgt, src_tokenizer)
-    val_encoded   = encode_corpus(val_src,   val_tgt,   src_tokenizer)
+    val_encoded = encode_corpus(val_src, val_tgt, src_tokenizer)
 
     train_batches = create_batches(train_encoded, batch_size=args.batch_size)
-    val_batches   = create_batches(val_encoded,   batch_size=args.batch_size)
+    val_batches = create_batches(val_encoded, batch_size=args.batch_size)
     print(f"  Train batches: {len(train_batches)}")
     print(f"  Val batches:   {len(val_batches)}\n")
 
@@ -207,7 +207,7 @@ def main():
     #         # We skip the first token (SOS) in the target because the model
     #         # predicts what comes *after* each token.
     #         predictions = predictions[:, 1:, :].reshape(-1, tgt_tokenizer.vocab_size)
-    #         targets     = target[:, 1:].reshape(-1)
+    #         targets = target[:, 1:].reshape(-1)
     #
     #         loss = criterion(predictions, targets)
     #
@@ -233,7 +233,7 @@ def main():
     #             target = torch.tensor(batch["target"]).to(device)
     #             predictions = model(source, target, teacher_forcing_ratio=0.0)
     #             predictions = predictions[:, 1:, :].reshape(-1, tgt_tokenizer.vocab_size)
-    #             targets     = target[:, 1:].reshape(-1)
+    #             targets = target[:, 1:].reshape(-1)
     #             val_loss   += criterion(predictions, targets).item()
     #
     #     avg_val_loss = val_loss / len(val_batches)

@@ -3,7 +3,7 @@
 # Unit tests for BLEU and chrF evaluation metrics.
 
 from lalango.evaluation.bleu import get_ngrams, clipped_precision, bleu_score, corpus_bleu
-from lalango.evaluation.chrf import get_char_ngrams, chrf_sentence, corpus_chrf
+from lalango.evaluation.chrf import chrf_sentence, corpus_chrf
 
 
 class TestGetNgrams:
@@ -82,13 +82,15 @@ class TestBLEUScore:
         """A more accurate translation should get a higher BLEU score."""
         reference = "How are you doing today"
         good_hyp = "How are you doing today"
-        bad_hyp  = "What is your name please"
-        assert bleu_score(good_hyp, reference) > bleu_score(bad_hyp, reference)
+        bad_hyp = "What is your name please"
+        assert bleu_score(good_hyp, reference) > bleu_score(
+            bad_hyp, reference
+        )
 
     def test_brevity_penalty_applied(self):
         """A very short hypothesis should get a lower score than a full one."""
         reference = "How are you doing today"
-        full_hyp  = "How are you doing today"
+        full_hyp = "How are you doing today"
         short_hyp = "How"
         assert bleu_score(full_hyp, reference) > bleu_score(short_hyp, reference)
 
@@ -141,8 +143,10 @@ class TestChrF:
     def test_higher_is_better(self):
         reference = "How are you doing today"
         good_hyp = "How are you doing today"
-        bad_hyp  = "Something completely different here"
-        assert chrf_sentence(good_hyp, reference) > chrf_sentence(bad_hyp, reference)
+        bad_hyp = "Something completely different here"
+        assert chrf_sentence(good_hyp, reference) > chrf_sentence(
+            bad_hyp, reference
+        )
 
     def test_score_between_0_and_100(self):
         for hyp, ref in [

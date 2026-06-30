@@ -33,7 +33,6 @@
 # Reference: "Neural Machine Translation by Jointly Learning to Align and Translate"
 #             Bahdanau et al., 2015  https://arxiv.org/abs/1409.0473
 
-import torch
 import torch.nn as nn
 
 

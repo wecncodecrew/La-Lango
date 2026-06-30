@@ -14,7 +14,7 @@
 #
 # To run this model end-to-end, see scripts/train.py.
 
-import torch
+import torch  # noqa: F401
 import torch.nn as nn
 
 

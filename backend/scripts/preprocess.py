@@ -26,8 +26,8 @@ import sys
 # Make sure the project root is on the Python path
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from lalango.data.cleaner import clean_parallel_corpus
-from lalango.data.splitter import split_corpus
+from lalango.data.cleaner import clean_parallel_corpus  # noqa: E402
+from lalango.data.splitter import split_corpus  # noqa: E402
 
 
 def save_split(sentences, filepath):
@@ -97,7 +97,7 @@ def main():
     # ---------------------------------------------------------------------------
     if args.src and args.tgt:
         # Single combined file → load, clean, then split
-        print(f"\nLoading combined corpus...")
+        print("\nLoading combined corpus...")
         print(f"  Source: {args.src}")
         print(f"  Target: {args.tgt}")
 
@@ -112,7 +112,7 @@ def main():
             max_length=args.max_length,
         )
 
-        print(f"\nSplitting into train/val/test...")
+        print("\nSplitting into train/val/test...")
         splits = split_corpus(
             source_sentences,
             target_sentences,
@@ -129,7 +129,7 @@ def main():
 
     elif args.src_train and args.tgt_train:
         # Pre-split files → load each split separately and clean
-        print(f"\nLoading pre-split corpus...")
+        print("\nLoading pre-split corpus...")
         splits_to_save = {}
         for split_name, src_path, tgt_path in [
             ("train", args.src_train, args.tgt_train),

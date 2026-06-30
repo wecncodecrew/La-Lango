@@ -87,7 +87,7 @@ def split_corpus(
     val_src, val_tgt = unzip(val_pairs)
     test_src, test_tgt = unzip(test_pairs)
 
-    print(f"Split complete:")
+    print("Split complete:")
     print(f"  Train: {len(train_src)} pairs ({train_ratio*100:.0f}%)")
     print(f"  Val:   {len(val_src)} pairs ({val_ratio*100:.0f}%)")
     print(f"  Test:  {len(test_src)} pairs ({test_ratio*100:.0f}%)")
