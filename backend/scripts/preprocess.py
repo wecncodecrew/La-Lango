@@ -26,8 +26,8 @@ import sys
 # Make sure the project root is on the Python path
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from lalango.data.cleaner import clean_parallel_corpus
-from lalango.data.splitter import split_corpus
+from lalango.data.cleaner import clean_parallel_corpus  # noqa: E402
+from lalango.data.splitter import split_corpus  # noqa: E402
 
 
 def save_split(sentences, filepath):

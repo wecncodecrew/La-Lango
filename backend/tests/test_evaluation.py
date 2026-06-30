@@ -90,7 +90,7 @@ class TestBLEUScore:
     def test_brevity_penalty_applied(self):
         """A very short hypothesis should get a lower score than a full one."""
         reference = "How are you doing today"
-        full_hyp  = "How are you doing today"
+        full_hyp = "How are you doing today"
         short_hyp = "How"
         assert bleu_score(full_hyp, reference) > bleu_score(short_hyp, reference)
 

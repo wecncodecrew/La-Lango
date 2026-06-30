@@ -23,9 +23,9 @@
 #
 # This file contains the class skeletons. Fill them in as part of Phase 4.
 
-import torch
+import torch  # noqa: F401
 import torch.nn as nn
-import math
+import math  # noqa: F401
 
 
 class PositionalEncoding(nn.Module):
@@ -75,7 +75,8 @@ class MultiHeadAttention(nn.Module):
     TODO (Phase 4):
         Implement __init__ and forward.
         Key parameters: embed_dim, num_heads
-        Key operations: Q, K, V projections → scaled dot-product attention → concat → output projection
+        Key operations: Q, K, V projections → scaled dot-product attention
+                        → concat → output projection
     """
 
     def __init__(self, embed_dim, num_heads, dropout=0.1):

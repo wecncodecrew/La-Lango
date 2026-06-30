@@ -22,8 +22,8 @@ import json
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from lalango.data.dataset import load_processed_dataset, encode_corpus, create_batches
-from lalango.tokenizers.char_tokenizer import CharTokenizer
+from lalango.data.dataset import load_processed_dataset, encode_corpus, create_batches  # noqa: E402
+from lalango.tokenizers.char_tokenizer import CharTokenizer  # noqa: E402
 
 # We will import the model once Phase 1 is implemented.
 # For now this import is commented out so the script runs cleanly.
@@ -104,7 +104,7 @@ def main():
     # ---------------------------------------------------------------------------
     print("Step 1: Loading data...")
     train_src, train_tgt = load_processed_dataset(args.data, split="train")
-    val_src,   val_tgt   = load_processed_dataset(args.data, split="val")
+    val_src, val_tgt = load_processed_dataset(args.data, split="val")
     print(f"  Train: {len(train_src)} pairs")
     print(f"  Val:   {len(val_src)} pairs\n")
 
@@ -137,10 +137,10 @@ def main():
     # ---------------------------------------------------------------------------
     print("Step 3: Encoding and batching data...")
     train_encoded = encode_corpus(train_src, train_tgt, src_tokenizer)
-    val_encoded   = encode_corpus(val_src,   val_tgt,   src_tokenizer)
+    val_encoded = encode_corpus(val_src, val_tgt, src_tokenizer)
 
     train_batches = create_batches(train_encoded, batch_size=args.batch_size)
-    val_batches   = create_batches(val_encoded,   batch_size=args.batch_size)
+    val_batches = create_batches(val_encoded, batch_size=args.batch_size)
     print(f"  Train batches: {len(train_batches)}")
     print(f"  Val batches:   {len(val_batches)}\n")
 
