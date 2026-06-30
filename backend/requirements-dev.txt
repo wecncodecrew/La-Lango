@@ -9,3 +9,5 @@ flake8==7.0.0
 
 # Jupyter notebooks — for the experiments/ folder
 jupyter==1.0.0
+# Plotting — required for training loss visualization in notebooks
+matplotlib>=3.7.0
