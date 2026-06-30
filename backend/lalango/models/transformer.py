@@ -47,9 +47,11 @@ class PositionalEncoding(nn.Module):
     def __init__(self, embed_dim, max_seq_len=512, dropout=0.1):
         super().__init__()
         # TODO (Phase 4): Create the positional encoding matrix using sin/cos
-        # Hint: pe[pos][2i]   = sin(pos / 10000^(2i/embed_dim))
+        # Hint: pe[pos][2i] = sin(pos / 10000^(2i/embed_dim))
         #        pe[pos][2i+1] = cos(pos / 10000^(2i/embed_dim))
-        raise NotImplementedError("PositionalEncoding.__init__ is a Phase 4 task.")
+        raise NotImplementedError(
+            "PositionalEncoding.__init__ is a Phase 4 task."
+        )
 
     def forward(self, x):
         """

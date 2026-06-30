@@ -90,7 +90,8 @@ def translate(request: TranslationRequest):
         raise HTTPException(
             status_code=404,
             detail=(
-                f"Language pair '{request.source_lang}→{request.target_lang}' is not supported yet. "
+                f"Language pair '{request.source_lang}→{request.target_lang}' "
+                f"is not supported yet. "
                 f"Supported pairs: {supported if supported else 'None yet — contribute one!'}. "
                 f"See languages/ to add a new language."
             )

@@ -18,7 +18,6 @@ import json
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from lalango.data.dataset import load_processed_dataset
-from lalango.evaluation.report import generate_report
 from lalango.tokenizers.char_tokenizer import CharTokenizer
 
 
