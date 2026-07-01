@@ -315,6 +315,6 @@ class Seq2SeqLSTM(nn.Module):
             if predicted_char == eos_idx:
                 break
             output_indices.append(predicted_char)
-           decoder_input = torch.tensor([[predicted_char]]).to(source_indices.device)
+            decoder_input = torch.tensor([[predicted_char]]).to(source_indices.device)
 
         return output_indices
