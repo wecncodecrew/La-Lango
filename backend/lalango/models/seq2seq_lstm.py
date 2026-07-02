@@ -98,7 +98,6 @@ class Encoder(nn.Module):
         return hidden, cell
 
 
-
 # ---------------------------------------------------------------------------
 # Decoder
 # ---------------------------------------------------------------------------
@@ -235,8 +234,9 @@ class Seq2SeqLSTM(nn.Module):
                tgt_seq_len = target.shape[1]
                batch_size = target.shape[0]
                tgt_vocab_size = self.decoder.output_layer.out_features
-               all_predictions = torch.zeros(batch_size, tgt_seq_len, tgt_vocab_size).to(source.device)
-
+                all_predictions = torch.zeros(
+                   batch_size, tgt_seq_len, tgt_vocab_size
+                ).to(source.device)
             3. The first input to the decoder is the SOS token (index 2):
                decoder_input = target[:, 0]   ← this is the SOS token for the whole batch
 
@@ -253,7 +253,9 @@ class Seq2SeqLSTM(nn.Module):
         batch_size = target.shape[0]
         tgt_seq_len = target.shape[1]
         tgt_vocab_size = self.decoder.output_layer.out_features
-        all_predictions = torch.zeros(batch_size, tgt_seq_len, tgt_vocab_size).to(source.device)
+        all_predictions = torch.zeros(
+                batch_size, tgt_seq_len, tgt_vocab_size
+        ).to(source.device)
 
         hidden, cell = self.encoder(source)
 
