@@ -16,6 +16,7 @@
 
 import torch  # noqa: F401
 import torch.nn as nn
+import random
 
 
 # ---------------------------------------------------------------------------
@@ -92,10 +93,9 @@ class Encoder(nn.Module):
                   outputs, (hidden, cell) = self.lstm(embedded)
         """
         # --- Your code here ---
-        raise NotImplementedError(
-            "Encoder.forward() is not implemented yet. "
-            "See the TODO above for step-by-step guidance."
-        )
+        embedded = self.embedding(source_indices)
+        _, (hidden, cell) = self.lstm(embedded)
+        return hidden, cell
 
 
 # ---------------------------------------------------------------------------
@@ -176,10 +176,12 @@ class Decoder(nn.Module):
             6. Return prediction, new_hidden, new_cell
         """
         # --- Your code here ---
-        raise NotImplementedError(
-            "Decoder.forward_step() is not implemented yet. "
-            "See the TODO above for step-by-step guidance."
-        )
+        input_token = input_token.unsqueeze(1)
+        embedded = self.embedding(input_token)
+        output, (hidden, cell) = self.lstm(embedded, (hidden, cell))
+        output = output.squeeze(1)
+        prediction = self.output_layer(output)
+        return prediction, hidden, cell
 
 
 # ---------------------------------------------------------------------------
@@ -232,8 +234,9 @@ class Seq2SeqLSTM(nn.Module):
                tgt_seq_len = target.shape[1]
                batch_size = target.shape[0]
                tgt_vocab_size = self.decoder.output_layer.out_features
-               all_predictions = torch.zeros(batch_size, tgt_seq_len, tgt_vocab_size)
-
+                all_predictions = torch.zeros(
+                   batch_size, tgt_seq_len, tgt_vocab_size
+                ).to(source.device)
             3. The first input to the decoder is the SOS token (index 2):
                decoder_input = target[:, 0]   ← this is the SOS token for the whole batch
 
@@ -247,10 +250,26 @@ class Seq2SeqLSTM(nn.Module):
             5. Return all_predictions
         """
         # --- Your code here ---
-        raise NotImplementedError(
-            "Seq2SeqLSTM.forward() is not implemented yet. "
-            "See the TODO above for step-by-step guidance."
-        )
+        batch_size = target.shape[0]
+        tgt_seq_len = target.shape[1]
+        tgt_vocab_size = self.decoder.output_layer.out_features
+        all_predictions = torch.zeros(
+                batch_size, tgt_seq_len, tgt_vocab_size
+        ).to(source.device)
+
+        hidden, cell = self.encoder(source)
+
+        decoder_input = target[:, 0]
+
+        for t in range(1, tgt_seq_len):
+            prediction, hidden, cell = self.decoder.forward_step(decoder_input, hidden, cell)
+            all_predictions[:, t, :] = prediction
+            if random.random() < teacher_forcing_ratio:
+                decoder_input = target[:, t]
+            else:
+                decoder_input = prediction.argmax(dim=1)
+
+        return all_predictions
 
     def translate(self, source_indices, sos_idx=2, eos_idx=3, max_length=100):
         """
@@ -286,7 +305,18 @@ class Seq2SeqLSTM(nn.Module):
             4. Return the list of predicted indices
         """
         # --- Your code here ---
-        raise NotImplementedError(
-            "Seq2SeqLSTM.translate() is not implemented yet. "
-            "This is a stretch goal for Phase 1."
-        )
+        hidden, cell = self.encoder(source_indices)
+        decoder_input = torch.tensor([[sos_idx]]).to(source_indices.device)
+        output_indices = []
+
+        for _ in range(max_length):
+            prediction, hidden, cell = self.decoder.forward_step(
+                decoder_input.squeeze(1), hidden, cell
+            )
+            predicted_char = prediction.argmax(dim=1).item()
+            if predicted_char == eos_idx:
+                break
+            output_indices.append(predicted_char)
+            decoder_input = torch.tensor([[predicted_char]]).to(source_indices.device)
+
+        return output_indices
