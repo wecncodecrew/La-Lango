@@ -90,7 +90,7 @@ Once your folder is set up, open a PR with:
 - The `languages/<your-pair>/` folder (config.json + README.md)
 - The label `data` on your PR
 
-You do not need to include the raw data files in the PR —
+You do not need to include the raw data files in the PR -
 just the config and documentation. Point contributors to where
 they can download the data in your README.
 

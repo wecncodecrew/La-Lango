@@ -92,8 +92,8 @@ This is what the **tokenizer** does.
                             into the Encoder
 ```
 
-In Phase 1 we use **character-level tokenization** — each character gets a number.
-In Phase 3 we upgrade to **BPE** — common subword chunks get their own numbers,
+In Phase 1 we use **character-level tokenization** - each character gets a number.
+In Phase 3 we upgrade to **BPE** - common subword chunks get their own numbers,
 which gives the model a better vocabulary to work with.
 
 ---
@@ -108,5 +108,5 @@ which gives the model a better vocabulary to work with.
 | Transformer          | `backend/lalango/models/transformer.py`    |
 | Training loop        | `backend/scripts/train.py`                 |
 
-Start with `char_tokenizer.py` — it is the simplest file and
+Start with `char_tokenizer.py` - it is the simplest file and
 a great entry point into the codebase.

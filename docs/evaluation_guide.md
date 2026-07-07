@@ -10,7 +10,7 @@ This guide explains the metrics we use and how to run them.
 Having a human read every translation would be ideal, but it is slow and expensive.
 Automatic metrics give us a fast way to compare models and track improvement over time.
 
-They are not perfect — a high BLEU score does not always mean the translation sounds natural —
+They are not perfect - a high BLEU score does not always mean the translation sounds natural -
 but they are a useful signal.
 
 ---
@@ -83,7 +83,7 @@ Example translations:
 - Compare your model against the **baseline** (the simple LSTM with no attention).
 - If your BLEU score is higher than the baseline, your improvement is real.
 - Always report results on the **test set**, never the training set.
-  (If you evaluate on training data, you are cheating — the model has already seen it.)
+  (If you evaluate on training data, you are cheating - the model has already seen it.)
 
 ---
 

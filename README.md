@@ -158,7 +158,7 @@ Check [ROADMAP.md](ROADMAP.md) to see what is being worked on.
 
 - 💬 [GitHub Discussions](https://github.com/Wecncode/La-Lango/discussions)
 - 🐛 [Open an issue](https://github.com/Wecncode/La-Lango/issues)
-- 📖 [docs/](docs/)
+- 📖 [docs/](docs/) — including the [System Design](docs/system_design.md) and [Project Management (WBS + Gantt)](docs/project_management.md)
 
 ---
 
