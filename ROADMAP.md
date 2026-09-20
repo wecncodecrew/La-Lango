@@ -1,6 +1,6 @@
-# 🗺️ La Lango AI — Roadmap
+# La Lango — Roadmap
 
-This file describes what we are building, in what order, and what is left to do.
+This roadmap documentation describes what we are building, in what order, and what is left to do.
 If you want to contribute, this is the best place to understand where the project is headed.
 
 ---
@@ -112,10 +112,9 @@ The web UI lives in `frontend/index.html` — a single HTML/CSS/JS file, no fram
 ---
 
 ## Long-term ideas (open for discussion)
-
 - Web UI for trying translations in a browser
 - Model export to ONNX for fast inference
 - Support for right-to-left scripts (Arabic, Urdu)
-- Community dataset hosting
+- Community language dataset hosting 
 
-Have an idea? Open a [GitHub Discussion](https://github.com/wecncodecrew/La-Lango/discussions).
+💭 Have an idea? Open a [GitHub Discussion](https://github.com/wecncodecrew/La-Lango/discussions).
