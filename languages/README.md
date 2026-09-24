@@ -9,7 +9,7 @@ Every language is contributed and maintained by community members.
 
 | Language pair | Status | Contributor | Corpus size |
 |---------------|--------|-------------|-------------|
-| *(none yet)*  | —      | —           | —           |
+| [English → Swahili](english-swahili/README.md) | Corpus registered; preparation required | Unspecified | 210,471 raw pairs |
 
 ---
 

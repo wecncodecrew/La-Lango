@@ -1,0 +1,32 @@
+{
+  "source_language": "English",
+  "target_language": "Swahili",
+  "source_iso_code": "eng",
+  "target_iso_code": "swa",
+  "source_script": "Latin",
+  "target_script": "Latin",
+  "direction": "ltr",
+  "contributor": "Unspecified",
+  "data_source": "Rogendo/English-Swahili-Sentence-Pairs on Hugging Face: https://huggingface.co/datasets/Rogendo/English-Swahili-Sentence-Pairs",
+  "corpus_size": 210471,
+  "license": "Unspecified",
+  "dataset": {
+    "repository_id": "Rogendo/English-Swahili-Sentence-Pairs",
+    "url": "https://huggingface.co/datasets/Rogendo/English-Swahili-Sentence-Pairs",
+    "publisher": "Rogendo",
+    "filename": "english_swahili_sentence_pairs_train.csv",
+    "path": "data/raw/english-swahili/english_swahili_sentence_pairs_train.csv",
+    "format": "csv",
+    "encoding": "utf-8",
+    "split": "train",
+    "source_column": "English sentence",
+    "target_column": "Swahili Translation",
+    "size_bytes": 22229431,
+    "duplicate_rows": 7123,
+    "empty_source_cells": 1,
+    "empty_target_cells": 1,
+    "source_cells_with_line_breaks": 46,
+    "target_cells_with_line_breaks": 46
+  },
+  "notes": "Raw CSV counts include duplicates and empty cells. Dialect, domain coverage, and translation provenance are unspecified. Parse as CSV, normalize embedded line breaks, and drop incomplete pairs together before exporting aligned source and target files. Existing train.src and train.tgt have unequal line counts and must be regenerated before training."
+}
