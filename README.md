@@ -1,4 +1,4 @@
-\# 🌍 La Lango AI
+# La Lango
 
 > **Low-Resource Language Translation API** — A community-driven NLP platform for translating
 > regional dialects, built from scratch by students, for the world.
