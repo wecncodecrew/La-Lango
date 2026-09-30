@@ -98,6 +98,44 @@ This will:
 
 ---
 
+## CSV datasets
+
+Some datasets ship as a single table with one sentence pair per row instead of
+two `.src`/`.tgt` files. `preprocess.py` reads those directly:
+
+```bash
+PYTHONPATH=backend python backend/scripts/preprocess.py \
+  --csv languages/english-kiswahili/dataset.csv \
+  --output data/processed/english-kiswahili/
+```
+
+### CSV rules
+
+1. **Header row required**, naming the two languages: `english,<target language>`
+   — for example `english,spanish` or `english,kiswahili`.
+2. **One pair per row**, English first, target language second. Rows with an
+   empty cell are skipped.
+3. **The script finds the columns itself.** It reads the `english` column and
+   uses the next column as the target language, so a two-column file needs no
+   extra flags. For anything else, name the columns:
+   `--source-column english --target-column kiswahili`.
+4. **UTF-8 encoding.** Same as the text files.
+5. **Extra columns are ignored**, so a file may carry provenance columns if you
+   want them.
+
+### Example
+
+```csv
+english,kiswahili
+Are you sure?,"Je, una uhakika?"
+You wanted to tell me about freedom?,Ulitaka kunieleza kuhusu uhuru?
+```
+
+Quote any cell that contains a comma, and use `--delimiter "\t"` for
+tab-separated files.
+
+---
+
 ## Privacy note
 
 Please do not commit personal or private data to this repository.

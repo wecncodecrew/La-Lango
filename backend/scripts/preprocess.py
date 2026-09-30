@@ -18,6 +18,12 @@
 #     --src-val   data/raw/val.src   --tgt-val   data/raw/val.tgt \
 #     --src-test  data/raw/test.src  --tgt-test  data/raw/test.tgt \
 #     --output    data/processed/konkani-english/
+#
+# If your dataset is a single CSV with one sentence pair per row
+# (see languages/english-kiswahili/dataset.csv):
+#   python scripts/preprocess.py \
+#     --csv languages/english-kiswahili/dataset.csv \
+#     --output data/processed/english-kiswahili/
 
 import argparse
 import os
@@ -27,6 +33,7 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from lalango.data.cleaner import clean_parallel_corpus  # noqa: E402
+from lalango.data.dataset import load_corpus_from_csv  # noqa: E402
 from lalango.data.splitter import split_corpus  # noqa: E402
 
 
@@ -48,6 +55,44 @@ def load_file(filepath):
         return [line.strip() for line in f if line.strip()]
 
 
+def clean_and_split(source_sentences, target_sentences, args):
+    """Clean a parallel corpus and split it into train/val/test.
+
+    Both the --src/--tgt and the --csv input options go through here, so
+    they always produce the same output files.
+
+    Args:
+        source_sentences (list of str): Source language sentences.
+        target_sentences (list of str): Target language sentences.
+        args (Namespace): Parsed command-line arguments.
+
+    Returns:
+        dict: Maps "train", "val" and "test" to (source, target) lists.
+    """
+    print(f"\nCleaning {len(source_sentences)} sentence pairs...")
+    source_sentences, target_sentences = clean_parallel_corpus(
+        source_sentences,
+        target_sentences,
+        min_length=args.min_length,
+        max_length=args.max_length,
+    )
+
+    print("\nSplitting into train/val/test...")
+    splits = split_corpus(
+        source_sentences,
+        target_sentences,
+        train_ratio=args.train_ratio,
+        val_ratio=args.val_ratio,
+        test_ratio=args.test_ratio,
+    )
+
+    return {
+        "train": (splits["train"]["source"], splits["train"]["target"]),
+        "val":   (splits["val"]["source"],   splits["val"]["target"]),
+        "test":  (splits["test"]["source"],  splits["test"]["target"]),
+    }
+
+
 def main():
     parser = argparse.ArgumentParser(
         description="Preprocess a parallel corpus for La Lango AI training."
@@ -64,6 +109,25 @@ def main():
     parser.add_argument("--tgt-val",   help="Pre-split target val file.")
     parser.add_argument("--src-test",  help="Pre-split source test file.")
     parser.add_argument("--tgt-test",  help="Pre-split target test file.")
+
+    # Option 3: provide a single CSV with one sentence pair per row
+    parser.add_argument(
+        "--csv", dest="csv_file",
+        help="Path to a CSV file containing both languages, one pair per row."
+    )
+    parser.add_argument(
+        "--source-column", default="english",
+        help="CSV column holding the source language. Default: english"
+    )
+    parser.add_argument(
+        "--target-column",
+        help="CSV column holding the target language, e.g. kiswahili. "
+             "Defaults to the first column after the source column."
+    )
+    parser.add_argument(
+        "--delimiter", default=",",
+        help="CSV column separator. Use '\\t' for tab-separated files. Default: ,"
+    )
 
     # Output
     parser.add_argument(
@@ -95,7 +159,23 @@ def main():
     # ---------------------------------------------------------------------------
     # Load the data
     # ---------------------------------------------------------------------------
-    if args.src and args.tgt:
+    if args.csv_file:
+        # Single CSV file → both languages come from the same table
+        print("\nLoading CSV corpus...")
+        print(f"  File: {args.csv_file}")
+        print(f"  Columns: {args.source_column} -> "
+              f"{args.target_column or '(next column in the header)'}")
+
+        source_sentences, target_sentences = load_corpus_from_csv(
+            args.csv_file,
+            source_column=args.source_column,
+            target_column=args.target_column,
+            delimiter=args.delimiter,
+        )
+
+        splits_to_save = clean_and_split(source_sentences, target_sentences, args)
+
+    elif args.src and args.tgt:
         # Single combined file → load, clean, then split
         print("\nLoading combined corpus...")
         print(f"  Source: {args.src}")
@@ -104,28 +184,7 @@ def main():
         source_sentences = load_file(args.src)
         target_sentences = load_file(args.tgt)
 
-        print(f"\nCleaning {len(source_sentences)} sentence pairs...")
-        source_sentences, target_sentences = clean_parallel_corpus(
-            source_sentences,
-            target_sentences,
-            min_length=args.min_length,
-            max_length=args.max_length,
-        )
-
-        print("\nSplitting into train/val/test...")
-        splits = split_corpus(
-            source_sentences,
-            target_sentences,
-            train_ratio=args.train_ratio,
-            val_ratio=args.val_ratio,
-            test_ratio=args.test_ratio,
-        )
-
-        splits_to_save = {
-            "train": (splits["train"]["source"], splits["train"]["target"]),
-            "val":   (splits["val"]["source"],   splits["val"]["target"]),
-            "test":  (splits["test"]["source"],  splits["test"]["target"]),
-        }
+        splits_to_save = clean_and_split(source_sentences, target_sentences, args)
 
     elif args.src_train and args.tgt_train:
         # Pre-split files → load each split separately and clean
@@ -143,7 +202,10 @@ def main():
                 src, tgt = clean_parallel_corpus(src, tgt, args.min_length, args.max_length)
                 splits_to_save[split_name] = (src, tgt)
     else:
-        print("Error: Provide either --src and --tgt, or --src-train/--tgt-train etc.")
+        print(
+            "Error: Provide either --src and --tgt, --csv, "
+            "or --src-train/--tgt-train etc."
+        )
         parser.print_help()
         sys.exit(1)
 

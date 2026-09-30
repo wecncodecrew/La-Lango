@@ -3,7 +3,7 @@
 # Dataset loading and batching utilities.
 #
 # This file handles:
-#   1. Loading a processed parallel corpus from disk
+#   1. Loading a parallel corpus from text files or from a CSV file
 #   2. Encoding sentences using a tokenizer
 #   3. Creating mini-batches for training
 #
@@ -11,7 +11,111 @@
 # Instead of updating the model after every single sentence (slow),
 # we process e.g. 32 sentences together (faster, more stable training).
 
+import csv
 import os
+
+
+def load_corpus_from_csv(
+    csv_file,
+    source_column="english",
+    target_column=None,
+    delimiter=",",
+):
+    """
+    Load a parallel corpus from a single CSV file.
+
+    Many community datasets are published as a spreadsheet-like table with one
+    sentence pair per row, so we read both languages from the same file instead
+    of from two separate .src/.tgt files.
+
+    The project-wide format is a header row plus two columns: the source
+    language and the target language, named in the header, e.g.
+    "english,kiswahili" or "english,spanish". Because every language names its
+    target column differently, target_column defaults to the first column after
+    the source column, so a two-column file loads with no extra arguments.
+
+    The file must have a header row. Rows where either language is empty are
+    skipped, and the remaining pairs keep their original order.
+
+    Args:
+        csv_file (str): Path to the CSV file.
+        source_column (str): Name of the column holding the source sentences.
+        target_column (str, optional): Name of the column holding the target
+            sentences. Defaults to the first column that is not source_column.
+        delimiter (str): Column separator. Use "\\t" for tab-separated files.
+
+    Returns:
+        tuple: (source_sentences, target_sentences) — two lists of strings.
+
+    Raises:
+        FileNotFoundError: If the file does not exist.
+        KeyError: If the requested columns are not in the header, or if the
+            file has no second column to use as the target language.
+
+    Example:
+        >>> src, tgt = load_corpus_from_csv(
+        ...     "languages/english-kiswahili/dataset.csv"
+        ... )
+        >>> src[0]
+        "Are you sure?"
+        >>> tgt[0]
+        "Je, una uhakika?"
+    """
+    if not os.path.exists(csv_file):
+        raise FileNotFoundError(f"Could not find {csv_file}.")
+
+    source_sentences = []
+    target_sentences = []
+    skipped = 0
+
+    with open(csv_file, "r", encoding="utf-8", newline="") as f:
+        reader = csv.DictReader(f, delimiter=delimiter)
+
+        # DictReader puts the header in fieldnames; fail early with a clear
+        # message rather than silently producing an empty corpus.
+        available_columns = reader.fieldnames or []
+
+        if source_column not in available_columns:
+            raise KeyError(
+                f"Column '{source_column}' not found in {csv_file}. "
+                f"Available columns: {', '.join(available_columns)}"
+            )
+
+        if target_column is None:
+            # Two-column convention: the target language is simply the other
+            # column, whatever it is named in the header.
+            other_columns = [
+                column for column in available_columns if column != source_column
+            ]
+            if not other_columns:
+                raise KeyError(
+                    f"{csv_file} only has a '{source_column}' column, so there is "
+                    f"no target language column. Expected a header like "
+                    f"'english,<target language>'."
+                )
+            target_column = other_columns[0]
+        elif target_column not in available_columns:
+            raise KeyError(
+                f"Column '{target_column}' not found in {csv_file}. "
+                f"Available columns: {', '.join(available_columns)}"
+            )
+
+        for row in reader:
+            source = (row.get(source_column) or "").strip()
+            target = (row.get(target_column) or "").strip()
+
+            if not source or not target:
+                skipped += 1
+                continue
+
+            source_sentences.append(source)
+            target_sentences.append(target)
+
+    print(f"Loaded {len(source_sentences)} sentence pairs from {csv_file}")
+    if skipped:
+        print(f"  Skipped {skipped} rows with an empty {source_column} or {target_column}")
+
+    return source_sentences, target_sentences
 
 
 def load_corpus_from_files(src_file, tgt_file):

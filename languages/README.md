@@ -9,7 +9,7 @@ Every language is contributed and maintained by community members.
 
 | Language pair | Status | Contributor | Corpus size |
 |---------------|--------|-------------|-------------|
-| English → Kiswahili (Sanifu) | In progress | reuben-vitalis | 3,000 sentence pairs |
+| English → Kiswahili (Sanifu) | In progress | reuben-vitalis, Johnnierad24 | 4,381 sentence pairs (`dataset.csv`, Tatoeba) + 3,000-pair QED recipe |
 
 ---
 

@@ -63,6 +63,78 @@ Expected result: "Cleaned corpus: kept 3000 pairs, skipped 0", split into
 
 ---
 
+## Dataset (CSV, committed)
+
+**File:** [`dataset.csv`](dataset.csv)
+**Pairs:** 4,381 English → Kiswahili sentence pairs
+**Source:** Tatoeba English–Kiswahili sentence links
+**License:** CC BY 2.0 FR — see [ATTRIBUTION.md](ATTRIBUTION.md)
+**Domains covered:** everyday conversation, short stories, education, proverbs
+
+Tatoeba sentences are written and translated by native speakers, so every pair
+here is human-made. That makes this file smaller than the QED corpus
+(4,381 vs 18,192 raw pairs), but it is the one we are allowed to commit: QED is
+distributed for research use only, so it stays a local-only option (documented
+in the section above).
+
+### Columns
+
+Two columns, in the order the project uses for every language dataset:
+English first, target language second.
+
+| Column      | Meaning                        |
+|-------------|--------------------------------|
+| `english`   | English sentence               |
+| `kiswahili` | Kiswahili (Sanifu) sentence    |
+
+### How to load it
+
+The preprocessing script reads the CSV directly — no need to split it by hand:
+
+```bash
+# Windows
+$env:PYTHONPATH="backend"
+python backend/scripts/preprocess.py --csv languages/english-kiswahili/dataset.csv --output data/processed/english-kiswahili/
+
+# Linux/Mac
+PYTHONPATH=backend python backend/scripts/preprocess.py --csv languages/english-kiswahili/dataset.csv --output data/processed/english-kiswahili/
+```
+
+Expected result: "Loaded 4381 sentence pairs" then "Cleaned corpus: kept 4373
+pairs, skipped 8" — the 8 skipped pairs are longer than the default
+`--max-length 200` — split into 3,498 train / 437 val / 438 test pairs.
+
+No column flags are needed: the script reads `english` and then the next
+column. If a CSV uses other names, point the script at them:
+
+```bash
+PYTHONPATH=backend python backend/scripts/preprocess.py \
+  --csv my_dataset.csv --source-column english --target-column kiswahili \
+  --output data/processed/my-pair/
+```
+
+### How this file was built (reproducible)
+
+1. Download the Tatoeba per-language exports (all under
+   `https://downloads.tatoeba.org/exports/per_language/`):
+   - `eng/eng_sentences.tsv.bz2` — English sentences (`id`, `lang`, `text`)
+   - `swh/swh_sentences.tsv.bz2` — Kiswahili sentences
+   - `swh/swh-eng_links.tsv.bz2` — the links between them (4,403 links)
+2. Join each link to both sentence tables.
+3. Drop, in this order: links whose sentence id is missing (21), empty cells,
+   sentences shorter than 2 or longer than 300 characters, sentences with no
+   Latin letters, sentences containing Arabic/Cyrillic/Devanagari characters,
+   sentences containing URLs, sentences containing bracketed annotations (1),
+   pairs where both sides are identical, exact duplicate pairs, and pairs whose
+   Kiswahili side is actually English.
+   **Result: 4,381 pairs kept** out of 4,403 links, covering 4,368 unique
+   English sentences (26 English sentences have two Kiswahili translations).
+4. Text is stored Unicode-normalised (NFC) with collapsed whitespace and tidy
+   punctuation spacing (`rafiki ; lakini` → `rafiki; lakini`). Casing and
+   punctuation marks are preserved, so do not lowercase this corpus blindly.
+
+---
+
 ## Linguistic notes for contributors
 
 - Kiswahili uses spaces between words - tokenization is straightforward
@@ -77,14 +149,22 @@ Expected result: "Cleaned corpus: kept 3000 pairs, skipped 0", split into
 
 ## Known issues / limitations
 
-- Corpus is currently a 3,000-pair QED subset - contributions welcome
+- Corpus is currently a 3,000-pair QED subset (local only) plus the committed
+  4,381-pair Tatoeba CSV - contributions welcome
+- The committed CSV is conversational and literary, not technical, medical or
+  legal text, so domain coverage is narrow
+- 26 English sentences have more than one Kiswahili translation, which is fine
+  for training but means the source side is not strictly unique
 - Model not yet trained - Phase 1 implementation in progress
 
 ---
 
 ## Contact
 
-**Contributor:** [@reuben-vitalis](https://github.com/reuben-vitalis)
+**Contributors:**
+
+- [@reuben-vitalis](https://github.com/reuben-vitalis) - QED recipe and language notes
+- [@Johnnierad24](https://github.com/Johnnierad24) - Tatoeba `dataset.csv` and CSV loading support
 
 If you are a native Kiswahili speaker and want to help evaluate translations
 or contribute sentence pairs, please open a GitHub issue or reach out via
