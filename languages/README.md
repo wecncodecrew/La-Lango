@@ -9,7 +9,11 @@ Every language is contributed and maintained by community members.
 
 | Language pair | Status | Contributor | Corpus size |
 |---------------|--------|-------------|-------------|
+
+| [English → Swahili](english-swahili/README.md) | Corpus registered; preparation required | Shadrack Makau | 210,471 raw pairs |
+=======
 | English → Kiswahili (Sanifu) | In progress | reuben-vitalis | 3,000 sentence pairs |
+
 
 ---
 
