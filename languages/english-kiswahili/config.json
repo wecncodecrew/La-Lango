@@ -7,7 +7,8 @@
   "target_script": "Latin",
   "direction": "ltr",
   "contributor": "reuben-vitalis",
-  "data_source": "QED English-Kiswahili parallel corpus subset",
-  "corpus_size": 3000,
+  "data_source": "Global Voices (globalvoices.org) parallel corpus, obtained via OPUS (https://opus.nlpl.eu/GlobalVoices/). News and citizen-media articles, human-translated by Global Voices Lingua volunteers.",
+  "license": "CC BY 3.0 - https://creativecommons.org/licenses/by/3.0/ - attribution to Global Voices required",
+  "corpus_size": 5000,
   "notes": "Standard Kiswahili (Kiswahili Sanifu) as standardized by the Institute of Kiswahili Research (TUKI). Spoken across East and Central Africa including Kenya, Tanzania, Uganda, Rwanda, DRC and beyond. Uses Latin script with no tone marks. Words are clearly space-separated. Language is agglutinative - verb roots take many prefixes and suffixes that carry meaning."
 }
