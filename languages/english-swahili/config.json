@@ -1,0 +1,12 @@
+{
+  "source_language": "English",
+  "target_language": "Swahili",
+  "source_iso_code": "eng",
+  "target_iso_code": "swa",
+  "source_script": "Latin",
+  "target_script": "Latin",
+  "direction": "ltr",
+  "contributor": "TooEzra",
+  "data_source": "Rogendo/English-Swahili-Sentence-Pairs, a parallel corpus hosted on Hugging Face",
+  "notes": "This is a specialized, open-source English-to-Swahili translation dataset built for training conversational AI and translation software. It stands out because it provides over 210,000 verified sentence pairs, moving past generic dictionary terms into real-world conversational phrasing. It is structured to easily plug into modern deep learning frameworks like PyTorch and Hugging Face Transformers."
+}

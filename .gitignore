@@ -10,6 +10,11 @@ build/
 .eggs/
 
 # Datasets — do not commit raw or processed data
+English-Swahili.csv
+/English-Swahili.csv
+
+ convert_english_swahili.py
+/convert_english_swahili.py
 # See docs/data_format.md for how to structure your data
 data/raw/
 data/processed/
