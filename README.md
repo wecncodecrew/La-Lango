@@ -143,6 +143,8 @@ Phase 5 ── Evaluation & Benchmarking   🔴 Research
 
 ## Contributing
 
+We welcome contributors of all levels!
+
 | Label                 | Who it is for                              |
 |-----------------------|--------------------------------------------|
 | 🟢 `good-first-issue` | First-timers, documentation, small fixes   |
