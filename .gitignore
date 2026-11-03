@@ -9,11 +9,6 @@ dist/
 build/
 .eggs/
 
-# Virtual environments
-venv/
-env/
-.venv/
-
 # Datasets — do not commit raw or processed data
 # See docs/data_format.md for how to structure your data
 data/raw/
@@ -45,3 +40,24 @@ Thumbs.db
 # Test coverage reports
 .coverage
 htmlcov/
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# PyTorch
+*.pt
+*.pth
+
+# OS generated files
+.DS_Store

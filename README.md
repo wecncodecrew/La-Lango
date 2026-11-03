@@ -21,32 +21,33 @@ We are an open, community-built translation platform where every language deserv
 > **No external AI APIs. No black boxes. Everything is implemented from scratch.**
 
 ---
-
 ## Project structure
 
 ```
-la-lango-ai/
+La-Lango/
 │
-├── 📁 backend/           ← Translation engine + REST API (Python)
-│   ├── lalango/          ← Core package: models, tokenizers, data, API
-│   ├── scripts/          ← CLI tools: train, evaluate, preprocess
-│   ├── tests/            ← Automated tests
-│   └── experiments/      ← Jupyter notebooks (start here!)
+├── lalango/                  # Main package
+│   ├── __init__.py           
+│   ├── tokenizers/
+│   │   ├── __init__.py       
+│   │   └── char_tokenizer.py 
+│   ├── data/
+│   │   ├── __init__.py       
+│   │   └── dataset.py        
+│   └── models/
+│       ├── __init__.py       
+│       └── seq2seq_lstm.py   
 │
-├── 📁 frontend/          ← Web UI (plain HTML / CSS / JavaScript)
-│   └── index.html        ← Entire UI in one file, no framework needed
+├── scripts/
+│   └── train.py              
 │
-├── 📁 languages/         ← Community language registry (add yours here!)
-├── 📁 data/              ← Your datasets go here (not tracked by git)
-├── 📁 docs/              ← Guides: architecture, data format, adding a language
+├── datasets/
+│   └── sample_data.csv       
 │
-├── README.md
-├── CONTRIBUTING.md
-├── ROADMAP.md
-└── LICENSE
+├── requirements.txt          # NEW: Dependencies
+├── .gitignore                # NEW: Ignored files
+└── README.md                 # NEW: Local dev instructions
 ```
-
----
 
 ## How the system works
 
@@ -152,6 +153,19 @@ Phase 5 ── Evaluation & Benchmarking   🔴 Research
 Read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a PR.
 Check [ROADMAP.md](ROADMAP.md) to see what is being worked on.
 
+---
+
+## Local Development Setup
+
+To work on Phase 1 of La Lango locally, follow these steps:
+
+**1. Clone the repository**
+```bash
+
+_git clone [https://github.com/wecncodecrew/La-Lango.git](https://github.com/wecncodecrew/La-Lango.git)
+cd La-Lango_
+
+```
 ---
 
 ## Community
